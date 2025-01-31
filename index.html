@@ -66,11 +66,9 @@
 								<!-- <div class="field"><input type="text" name="fname" id="form01-fname" placeholder="Name" maxlength="128" required /></div>
 								<div class="field"><input type="email" name="email" id="form01-email" placeholder="Email address" maxlength="128" required /></div>
 								<div class="field"><input type="text" name="mail" id="form01-mail" placeholder="Mail" maxlength="128" /></div> -->
-								<div class="actions"><button type="submit">
-									<a href="" download="assets\AI-Genius-AI-Prompts-For-Creators-1_230216_083125.pdf" download>
-									Download pdf
-								</a>
-								</button></div>
+								<div class="download-button">
+									<a href="/download-pdf" class="button" download>Download PDF</a>
+								</div>
 							</div>
 							<input type="hidden" name="id" value="form01" />
 						</form>
@@ -128,13 +126,29 @@
 			</div>
 		</div>
 		<script>
-			function downloadPDF() {
-            const pdfPath = 'assets/AI-Genius-AI-Prompts-For-Creators-1_230216_083125.pdf';
-            const link = document.createElement('a');
-            link.href = pdfPath;
-            link.download = 'AI-Genius-AI-Prompts-For-Creators.pdf';
-            link.click();
-        }
+			 // Add error handling for the download
+			 document.querySelector('.download-button a').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch('/download-pdf');
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Download failed');
+                    return;
+                }
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'AI-Genius-AI-Prompts-For-Creators.pdf';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } catch (err) {
+                alert('An error occurred during download');
+            }
+        });
 		</script>
 		<script src="./index.js"></script>
 		<script src="./main.js"></script>
