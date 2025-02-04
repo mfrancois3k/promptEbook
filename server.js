@@ -4,7 +4,23 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-export const config = {
+
+app.use(express.static("public"));
+
+app.get('/', (req, res) => {
+    res.render('index.html')
+})  
+
+app.get('/download-file', (req, res) => {
+    res.download('./public/assets/AI-Genius-AI-Prompts-For-Creators-1_230216_083125.pdf');
+});
+    const PORT = process.env.PORT || 3000; 
+    
+    app.listen(PORT, () => { 
+        console.log('Server started on PORT ${PORT}') 
+    });
+ 
+    export const config = {
     api: {
       responseLimit: '50mb',
       bodyParser: false,
