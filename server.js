@@ -12,7 +12,7 @@ export const config = {
   };
   
   export default async function handler(req, res) {
-      const GOOGLE_DRIVE_URL = 'https://drive.google.com/uc?export=download&id=1AjXetu6N3HZVbTtnbONFZTE89gy3uOLK';
+      const GOOGLE_DRIVE_URL = 'https://drive.google.com/file/d/1AjXetu6N3HZVbTtnbONFZTE89gy3uOLK/view?usp=sharing';
   
       try {
           const response = await fetch(GOOGLE_DRIVE_URL);
